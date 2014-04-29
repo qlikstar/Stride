@@ -1,26 +1,17 @@
+# Import Statements 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Numeric, String, Date, Boolean, Index, event, DDL, func
-import psycopg2
+from sqlalchemy import Column, Integer
 from sqlalchemy import create_engine
-from sqlalchemy import text
-from sqlalchemy import Sequence
-from sqlalchemy import ForeignKey
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy import UniqueConstraint
-from sqlalchemy.types import UserDefinedType
-from sqlalchemy.sql import label
-from sqlalchemy import func
-import decimal
-
+from sqlalchemy import Column, Integer, Numeric, String, Date, Boolean, Index, event, DDL, func
+import ConfigParser
 from sqlalchemy.dialects.postgresql import ARRAY, BIGINT, BIT, \
     BOOLEAN, BYTEA, CHAR, CIDR, DATE, \
     DOUBLE_PRECISION, ENUM, FLOAT, INET, INTEGER, \
     INTERVAL, MACADDR, NUMERIC, REAL, SMALLINT, TEXT, TIME, \
     TIMESTAMP, UUID, VARCHAR
 
-import string
-import ConfigParser
+
 
 # load the app configuration file
 config_file = 'app_config.ini'
@@ -42,6 +33,7 @@ engine.dialect._to_decimal = float
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
+# Imports the table provider
 class Provider(Base):
 
     __tablename__ = 'provider'
@@ -78,9 +70,7 @@ class Provider(Base):
             (self.firstname, self.lastname, self.credentials, self.addr1,
              self.city, self.zipcode, self.state,self.latitude, self.longitude)
 
-
-
-
+# Defines the table zip_geo
 class Zip_geo(Base):
 
     __tablename__ = 'zip_geo'

@@ -1,8 +1,7 @@
 import json # json library
-import re # regex library
+import re   # regex library
 import os.path 
 import argparse # argument parser library
-import unicodedata # 
 from sqlalchemy.sql import label, select
 import time
 
@@ -82,6 +81,7 @@ def add_provider(db_enabled, lastname, firstname, credentials, addr1, addr2, cit
     prov_data = res.fetchone()
     session.close()    
 
+    #To check if record exists, then this step will be skipped
     if not(prov_data):
         session = Session()
         # To fetch the Geographical coordinates from Zip_geotable 

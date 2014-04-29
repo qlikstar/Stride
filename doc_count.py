@@ -6,17 +6,17 @@ from model import Session
 from model import Provider, Zip_geo
 
 
+# Function to find the patient location and the doctors around
 def find_distance(patient_location, miles):
     
         session = Session()
         p = select([Provider.latitude, Provider.longitude])
         result = session.execute(p)
-        #print result
         doc_data = result.fetchall()
-        #print doc_data
 
         doc_count = 0
 
+        # Checks for each doctor's location in the database
         for coordinates in doc_data:
             doc_location =  geopy.Point(coordinates.latitude,coordinates.longitude )
             dist = geopy.distance.distance(patient_location, doc_location).miles
@@ -26,7 +26,7 @@ def find_distance(patient_location, miles):
         
         if doc_count == 0:
             print  'No doctors found near you in ' + str(miles)+ ' miles'
-        else:     
+        else:
             print str(doc_count) + ' doctors found near you in ' + str(miles)+ ' miles'
 
 
@@ -50,7 +50,9 @@ def get_coordinates(zipcode , miles):
         else:
             print 'Zipcode not found. Please enter a valid zipcode'
         session.close()
-    
+  
+ 
+# Main #    
 if __name__ == '__main__':
     zipcode = raw_input('Enter your zipcode : ')
     miles   = raw_input('Enter miles you want to search :')
